@@ -1,0 +1,1 @@
+ALTER TABLE task ADD COLUMN task_rate int DEFAULT 0;

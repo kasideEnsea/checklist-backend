@@ -5,4 +5,7 @@
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="db/changelog/patches/0001_checkListCreation.sql"/>
+    <include file="db/changelog/patches/0002_addColumnTaskrate.sql"/>
+    <include file="db/changelog/patches/0003_alterColumnTaskrate.sql"/>
+
 </databaseChangeLog>

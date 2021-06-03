@@ -37,4 +37,7 @@ public class Task {
     @Column(name = "deleted")
     private boolean deleted;
 
+    @Column(name = "task_rate")
+    private int rate;
+
 }

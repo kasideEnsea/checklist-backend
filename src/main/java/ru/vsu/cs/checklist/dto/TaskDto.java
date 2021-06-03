@@ -18,4 +18,5 @@ public class TaskDto {
     private boolean deleted;
     private List<TaskDto> tasks;
     private String comment;
+    private int rate;
 }

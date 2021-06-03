@@ -33,8 +33,9 @@ public class UserService {
     public List<UserSummaryDto> getUserSummary(int userId) {
         return userSummaryDao.getSummary(userId).map(objects -> {
             Date date = (Date) objects[0];
-            int count = ((BigInteger) objects[1]).intValue();
-            return new UserSummaryDto(date, count);
+            int count = ((BigInteger) objects[2]).intValue();
+            int rate = ((BigInteger) objects[1]).intValue();
+            return new UserSummaryDto(date, count, rate);
         }).collect(Collectors.toList());
     }
 }

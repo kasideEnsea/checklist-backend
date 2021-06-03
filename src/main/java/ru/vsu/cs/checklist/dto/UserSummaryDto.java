@@ -10,4 +10,5 @@ import java.util.Date;
 public class UserSummaryDto {
     private Date date;
     private int count;
+    private int rate;
 }

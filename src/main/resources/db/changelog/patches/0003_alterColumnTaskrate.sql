@@ -1,0 +1,1 @@
+ALTER TABLE task ALTER COLUMN task_rate SET DEFAULT 2;

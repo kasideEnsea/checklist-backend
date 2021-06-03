@@ -17,6 +17,9 @@ import ru.vsu.cs.checklist.exception.WebException;
 import ru.vsu.cs.checklist.service.CurrentUserLogService;
 import ru.vsu.cs.checklist.service.TasksService;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,18 +70,22 @@ public class TaskController {
     }
 
     private void logChanges(TaskDto taskDto, TaskDto oldTask) {
+
         boolean isChecklist = taskDto.getParentId() == null;
         if (!oldTask.getDescription().equals(taskDto.getDescription())) {
             logService.logModifiedTask(taskDto.getId(), oldTask.getDescription(),
                     taskDto.getDescription(), taskDto.getComment(), isChecklist);
         }
-        if (!Objects.toString(oldTask.getDeadline().toInstant())
+        if (oldTask.getDeadline()!=null && taskDto.getDeadline()!= null && !Objects.toString(oldTask.getDeadline().toInstant())
                 .equals(Objects.toString(taskDto.getDeadline().toInstant()))) {
             String newDate = taskDto.getDeadline() != null ? taskDto.getDeadline().toInstant().toString() : null;
             logService.logModifiedTaskDeadline(taskDto.getId(), taskDto.getDescription(),
                     newDate, taskDto.getComment(), isChecklist);
         }
         if (!oldTask.isDone() && taskDto.isDone()) {
+            if (Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()).after(taskDto.getDeadline())){
+                taskDto.setRate(1);
+            }
             logService.logDoneTask(taskDto.getId(), taskDto.getDescription(), taskDto.getComment(), isChecklist);
         }
         if (oldTask.isDone() && !taskDto.isDone()) {
